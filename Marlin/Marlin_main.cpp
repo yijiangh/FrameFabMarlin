@@ -88,7 +88,7 @@
  *
  * -----------------
  * Implemented Codes
- * -----------------
+ * -----------------lo
  *
  * "G" Codes
  *
@@ -811,8 +811,8 @@ void loop() {
     card.checkautostart(false);
   #endif
 
-  if (commands_in_queue) {
-
+  if (commands_in_queue)
+  {
     #if ENABLED(SDSUPPORT)
 
       if (card.saving) {
@@ -985,7 +985,8 @@ inline void get_serial_commands() {
 
 #if ENABLED(SDSUPPORT)
 
-  inline void get_sdcard_commands() {
+  inline void get_sdcard_commands() 
+  {
     static bool stop_buffering = false,
                 sd_comment_mode = false;
 
@@ -1002,19 +1003,29 @@ inline void get_serial_commands() {
 
     uint16_t sd_count = 0;
     bool card_eof = card.eof();
-    while (commands_in_queue < BUFSIZE && !card_eof && !stop_buffering) {
+    while (commands_in_queue < BUFSIZE && !card_eof && !stop_buffering) 
+	{
       int16_t n = card.get();
       char sd_char = (char)n;
       card_eof = card.eof();
+
+	  card.getWorkDirName();
+	  card.getfilename(1);
+
       if (card_eof || n == -1
           || sd_char == '\n' || sd_char == '\r'
           || ((sd_char == '#' || sd_char == ':') && !sd_comment_mode)
-      ) {
-        if (card_eof) {
+      ) 
+	  {
+		lcd_setstatus(card.filename, true);
+
+        if (card_eof) 
+		{
           SERIAL_PROTOCOLLNPGM(MSG_FILE_PRINTED);
           print_job_stop(true);
           char time[30];
-          millis_t t = print_job_timer();
+
+		  millis_t t = print_job_timer();
           int hours = t / 60 / 60, minutes = (t / 60) % 60;
           sprintf_P(time, PSTR("%i " MSG_END_HOUR " %i " MSG_END_MINUTE), hours, minutes);
           SERIAL_ECHO_START;
@@ -6078,10 +6089,12 @@ inline void gcode_T(uint8_t tmp_extruder) {
  * Process a single command and dispatch it to its handler
  * This is called from the main loop()
  */
-void process_next_command() {
+void process_next_command() 
+{
   current_command = command_queue[cmd_queue_index_r];
 
-  if (DEBUGGING(ECHO)) {
+  if (DEBUGGING(ECHO))
+  {
     SERIAL_ECHO_START;
     SERIAL_ECHOLN(current_command);
   }

@@ -63,8 +63,8 @@
  * If you get false positives for "Thermal Runaway" increase THERMAL_PROTECTION_HYSTERESIS and/or THERMAL_PROTECTION_PERIOD
  */
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
-  #define THERMAL_PROTECTION_PERIOD 40        // Seconds
-  #define THERMAL_PROTECTION_HYSTERESIS 4     // Degrees Celsius
+  #define THERMAL_PROTECTION_PERIOD 200        // Seconds
+  #define THERMAL_PROTECTION_HYSTERESIS 30     // Degrees Celsius
 
   /**
    * Whenever an M104 or M109 increases the target temperature the firmware will wait for the
@@ -409,7 +409,7 @@
 #define USE_WATCHDOG
 
 #if ENABLED(USE_WATCHDOG)
-  // If you have a watchdog reboot in an ArduinoMega2560 then the device will hang forever, as a watchdog reset will leave the watchdog on.
+  // If you have a watchdog reloadboot in an ArduinoMega2560 then the device will hang forever, as a watchdog reset will leave the watchdog on.
   // The "WATCHDOG_RESET_MANUAL" goes around this by not using the hardware reset.
   //  However, THIS FEATURE IS UNSAFE!, as it will only work if interrupts are disabled. And the code could hang in an interrupt routine with interrupts disabled.
   //#define WATCHDOG_RESET_MANUAL

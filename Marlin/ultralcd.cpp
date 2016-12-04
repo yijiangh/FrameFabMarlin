@@ -470,7 +470,8 @@ static void lcd_return_to_status() {
 static void lcd_main_menu() {
   START_MENU();
   MENU_ITEM(back, MSG_WATCH, lcd_status_screen);
-  if (movesplanned() || IS_SD_PRINTING) {
+  if (movesplanned() || IS_SD_PRINTING)
+  {
     MENU_ITEM(submenu, MSG_TUNE, lcd_tune_menu);
   }
   else {
@@ -847,12 +848,12 @@ static void lcd_prepare_menu() {
   //
   // Auto Home
   //
-  MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+  //MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
 
   //
   // Set Home Offsets
   //
-  MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
+  //MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
   //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 X0 Y0 Z0"));
 
   //
@@ -868,12 +869,12 @@ static void lcd_prepare_menu() {
   //
   // Move Axis
   //
-  MENU_ITEM(submenu, MSG_MOVE_AXIS, lcd_move_menu);
+  //MENU_ITEM(submenu, MSG_MOVE_AXIS, lcd_move_menu);
 
   //
   // Disable Steppers
   //
-  MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
+  //MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
 
   //
   // Preheat PLA
@@ -885,14 +886,14 @@ static void lcd_prepare_menu() {
       MENU_ITEM(submenu, MSG_PREHEAT_ABS, lcd_preheat_abs_menu);
     #else
       MENU_ITEM(function, MSG_PREHEAT_PLA, lcd_preheat_pla0);
-      MENU_ITEM(function, MSG_PREHEAT_ABS, lcd_preheat_abs0);
+      //MENU_ITEM(function, MSG_PREHEAT_ABS, lcd_preheat_abs0);
     #endif
   #endif
 
   //
   // Cooldown
   //
-  MENU_ITEM(function, MSG_COOLDOWN, lcd_cooldown);
+  //MENU_ITEM(function, MSG_COOLDOWN, lcd_cooldown);
 
   //
   // Switch power on/off
@@ -1522,17 +1523,21 @@ static void lcd_control_volumetric_menu() {
     START_MENU();
     MENU_ITEM(back, MSG_MAIN, lcd_main_menu);
     card.getWorkDirName();
-    if (card.filename[0] == '/') {
+    if (card.filename[0] == '/')
+	{
       #if !PIN_EXISTS(SD_DETECT)
         MENU_ITEM(function, LCD_STR_REFRESH MSG_REFRESH, lcd_sd_refresh);
       #endif
     }
-    else {
+    else
+	{
       MENU_ITEM(function, LCD_STR_FOLDER "..", lcd_sd_updir);
     }
 
-    for (uint16_t i = 0; i < fileCnt; i++) {
-      if (_menuItemNr == _lineNr) {
+    for (uint16_t i = 0; i < fileCnt; i++) 
+	{
+      if (_menuItemNr == _lineNr) 
+	  {
         card.getfilename(
           #if ENABLED(SDCARD_RATHERRECENTFIRST)
             fileCnt-1 -
@@ -1867,7 +1872,8 @@ bool lcd_blink() {
  *
  * No worries. This function is only called from the main thread.
  */
-void lcd_update() {
+void lcd_update() 
+{
   #if ENABLED(ULTIPANEL)
     static millis_t return_to_status_ms = 0;
   #endif
